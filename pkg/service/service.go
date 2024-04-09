@@ -2,19 +2,23 @@ package service
 
 import "github.com/higatu/todo-app/pkg/repository"
 
-type Autorization interface {
+
+type Banner interface{
+
 }
 
-type TodoList interface {
+type Tag interface{
+
 }
 
-type TodoItem interface {
+type Feature interface{
+
 }
 
 type Service struct {
-	Autorization
-	TodoList
-	TodoItem
+	Banner
+	Tag
+	Feature
 }
 
 func NewService(repos *repository.Repository) *Service {

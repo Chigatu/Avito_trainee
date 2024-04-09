@@ -2,19 +2,19 @@ package repository
 
 import "github.com/jmoiron/sqlx"
 
-type Autorization interface {
+type Banner interface {
 }
 
-type TodoList interface {
+type Tag interface {
 }
 
-type TodoItem interface {
+type Feature interface {
 }
 
 type Repository struct {
-	Autorization
-	TodoList
-	TodoItem
+	Banner
+	Tag
+	Feature
 }
 
 func NewRepository(db *sqlx.DB) *Repository {

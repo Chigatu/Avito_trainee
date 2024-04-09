@@ -16,31 +16,33 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	// auth := router.Group("/auth")
-	// {
-	// 	auth.POST("/sign-up", h.signUp)
-	// 	auth.POST("/sign-in", h.signIn)
-	// }
-
-	api := router.Group("/api")
+	user_banner := router.Group("/user_banner")
 	{
-		lists := api.Group("/lists")
-		{
-			lists.POST("/", h.createList)
-			lists.GET("/", h.getAllList)
-			lists.GET("/:id", h.getListById)
-			lists.PUT("/:id", h.updateList)
-			lists.DELETE("/id", h.deleteList)
+		user_banner.GET("/tag_id", h.getTagId)	
+		user_banner.GET("/feature_id", h.getFeatureId)
+		user_banner.GET("/use_last_version", h.getLastVersion)
+		user_banner.GET("user_token", h.getUserToken)
 
-			items := lists.Group("/:id/items")
-			{
-				items.POST("/:id", h.createItem)
-				items.GET("/", h.getAllItem)
-				items.GET("/:item/_id", h.getItemById)
-				items.PUT("/:id", h.updateItem)
-				items.DELETE("/:id", h.deleteItem)
-			}
-		}
 	}
+
+	banner := router.Group("/banner")
+	{
+		banner.GET("/token", h.getToken)
+		banner.GET("/feature_id", h.getFeatureId)
+		banner.GET("/tag_id", h.getTagId)
+		banner.GET("/limit", h.getLimit)
+		banner.GET("/offset", h.getOffset)
+		banner.POST("/token", h.postToken)
+
+			id := banner.Group("/:id")
+			{
+				id.PATCH("/id", h.patchId)
+				id.PATCH("/token", h.patchToken)
+				id.DELETE("/id", h.deleteId)
+				id.DELETE("/token", h.deleteToken)
+			}
+		
+	}
+	
 	return router
 }
